@@ -45,6 +45,7 @@ struct PoeticQuiz {
     var rootNode: QuestionNode?
    
     func startQuiz(question: QuestionNode?)  {
+        print("(A válasz számával válaszolj)\n")
         var currentQuestion = question
         let answersStrings = currentQuestion?.answers?.sorted(by: { (arg0, arg1) -> Bool in
             
@@ -73,7 +74,9 @@ struct PoeticQuiz {
             handleResults(question: currentQuestion)
 
         default:
-            break
+            print("Válaszd ki a megfelelő válasz számát")
+                startQuiz(question: currentQuestion)
+                
         }
            
     }
@@ -86,8 +89,8 @@ struct PoeticQuiz {
         let currentQuestion = question
         guard currentQuestion != nil else {return}
         if currentQuestion?.answers == nil {
-        print(currentQuestion?.value ?? "")
-        print("Újrapróbálod? i/n")
+        print("\n", currentQuestion?.value ?? "")
+        print("\nÚjrapróbálod? i/n")
         let continueAnswer = readLine()
         switch continueAnswer {
             case "i":
@@ -96,6 +99,7 @@ struct PoeticQuiz {
                 exit(0)
              default:
                 print("igen: i, nem: n")
+           handleResults(question: question)
                 }
             } else {
                 startQuiz(question: currentQuestion)
